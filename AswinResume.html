@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aswin P — Senior Software Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060912;
+  --surface: #0d1220;
+  --surface2: #131926;
+  --border: rgba(99,179,237,0.1);
+  --border2: rgba(99,179,237,0.2);
+  --blue: #63b3ed;
+  --blue2: #4299e1;
+  --cyan: #76e4f7;
+  --green: #68d391;
+  --gold: #f6e05e;
+  --text: #e2e8f0;
+  --muted: #718096;
+  --dim: #4a5568;
+  --accent: #63b3ed;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom cursor */
+.cursor {
+  position: fixed;
+  width: 10px; height: 10px;
+  background: var(--cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease;
+  mix-blend-mode: screen;
+}
+.cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1px solid rgba(118,228,247,0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.4s ease, width 0.3s, height 0.3s;
+}
+
+/* Animated grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(99,179,237,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99,179,237,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Glow orbs */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  animation: orbFloat 8s ease-in-out infinite;
+}
+.orb1 { width: 400px; height: 400px; background: rgba(99,179,237,0.06); top: -100px; right: 10%; animation-delay: 0s; }
+.orb2 { width: 300px; height: 300px; background: rgba(118,228,247,0.05); bottom: 20%; left: -50px; animation-delay: 3s; }
+.orb3 { width: 250px; height: 250px; background: rgba(104,211,145,0.04); top: 40%; right: -50px; animation-delay: 6s; }
+
+@keyframes orbFloat {
+  0%,100%{transform:translateY(0) scale(1)}
+  50%{transform:translateY(-30px) scale(1.05)}
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 3rem;
+  background: rgba(6,9,18,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--cyan); }
+
+.nav-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--green);
+  border: 1px solid rgba(104,211,145,0.3);
+  padding: 0.35rem 0.9rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dot-live {
+  width: 6px; height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:0.5;transform:scale(1.4)}
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 7rem 5rem 4rem;
+  position: relative;
+  z-index: 1;
+  gap: 4rem;
+}
+
+.hero-left { flex: 1; }
+
+.hero-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.2s forwards;
+}
+
+.hero-name {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.4s forwards;
+}
+
+.hero-name span {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 50%, var(--green) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+}
+
+.hero-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 500;
+  color: var(--muted);
+  margin-bottom: 2rem;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.6s forwards;
+}
+
+.hero-bio {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #94a3b8;
+  max-width: 520px;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.8s forwards;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  opacity: 0;
+  animation: fadeUp 0.6s 1s forwards;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--bg);
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  padding: 0.75rem 1.8rem;
+  border-radius: 4px;
+  border: none;
+  cursor: none;
+  transition: opacity 0.2s, transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+
+.btn-secondary {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--cyan);
+  border: 1px solid var(--border2);
+  padding: 0.75rem 1.8rem;
+  border-radius: 4px;
+  cursor: none;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+}
+.btn-secondary:hover { border-color: var(--cyan); background: rgba(99,179,237,0.05); transform: translateY(-2px); }
+
+.hero-right {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.9s forwards;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.2rem 1.8rem;
+  min-width: 200px;
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+}
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--cyan);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* SECTION WRAPPER */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 5rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 3rem;
+}
+
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* SKILLS */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.skill-pill {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  transition: border-color 0.2s, transform 0.2s;
+  cursor: default;
+}
+.skill-pill:hover { border-color: var(--border2); transform: translateY(-2px); }
+
+.skill-icon {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, rgba(99,179,237,0.15), rgba(118,228,247,0.1));
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.skill-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* EXPERIENCE */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.4rem;
+  top: 0.4rem;
+  width: 8px; height: 8px;
+  background: var(--cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(118,228,247,0.5);
+}
+
+.timeline-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--cyan);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-company {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+
+.timeline-role {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.4rem;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s;
+}
+.project-card:hover { border-color: var(--border2); }
+
+.project-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--blue);
+}
+
+.project-meta {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.7rem;
+}
+
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  background: rgba(99,179,237,0.1);
+  color: var(--blue);
+  border: 1px solid rgba(99,179,237,0.2);
+}
+
+.tag.green { background: rgba(104,211,145,0.1); color: var(--green); border-color: rgba(104,211,145,0.2); }
+.tag.gold  { background: rgba(246,224,94,0.1); color: var(--gold); border-color: rgba(246,224,94,0.2); }
+
+.project-desc {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: #94a3b8;
+}
+
+/* EDUCATION */
+.edu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
+}
+
+.edu-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.edu-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+
+.edu-year {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.edu-degree {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.edu-institute {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+/* CONTACT */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  max-width: 600px;
+}
+
+.contact-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.2s, transform 0.2s;
+}
+.contact-item:hover { border-color: var(--border2); transform: translateY(-2px); }
+
+.contact-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.contact-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.2rem;
+}
+
+.contact-value {
+  font-size: 0.8rem;
+  color: var(--text);
+  word-break: break-all;
+}
+
+/* TECH STACK BAR */
+.skill-bar-wrap {
+  margin-top: 0.6rem;
+  height: 3px;
+  background: rgba(99,179,237,0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.skill-bar {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1s cubic-bezier(0.23,1,0.32,1);
+}
+.skill-pill.visible .skill-bar { transform: scaleX(1); }
+
+/* CODE SNIPPET */
+.code-block {
+  background: #070b14;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem 1.2rem;
+  margin-top: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  line-height: 1.7;
+  color: #94a3b8;
+  overflow-x: auto;
+}
+.code-block .kw  { color: var(--cyan); }
+.code-block .fn  { color: var(--blue); }
+.code-block .str { color: var(--green); }
+.code-block .cm  { color: var(--dim); font-style: italic; }
+.code-block .tp  { color: var(--gold); }
+
+/* ARCH BADGE */
+.arch-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+.arch-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 3px;
+  background: rgba(246,224,94,0.08);
+  color: var(--gold);
+  border: 1px solid rgba(246,224,94,0.2);
+}
+
+/* PROFICIENCY TABLE */
+.prof-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+}
+.prof-table th {
+  text-align: left;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 400;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.prof-table td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid rgba(99,179,237,0.05);
+  color: var(--text);
+}
+.prof-table tr:hover td { background: rgba(99,179,237,0.03); }
+.level-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+.level-expert { background: var(--cyan); }
+.level-advanced { background: var(--green); }
+.level-intermediate { background: var(--gold); }
+
+/* FOOTER */
+footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 2rem 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+}
+
+/* ===== CHATBOT ===== */
+#chat-toggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 200;
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  border: none;
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 0 30px rgba(99,179,237,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: togglePop 0.6s 1.5s both;
+}
+#chat-toggle:hover { transform: scale(1.1); box-shadow: 0 0 45px rgba(99,179,237,0.6); }
+
+@keyframes togglePop {
+  from { opacity:0; transform: scale(0.5); }
+  to   { opacity:1; transform: scale(1); }
+}
+
+.chat-bubble {
+  position: fixed;
+  bottom: 6.5rem;
+  right: 2rem;
+  z-index: 199;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 10px 10px 2px 10px;
+  padding: 0.7rem 1rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  white-space: nowrap;
+  opacity: 0;
+  animation: bubbleIn 0.5s 2.5s forwards;
+  pointer-events: none;
+}
+@keyframes bubbleIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+#chat-window {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 200;
+  width: 380px;
+  height: 560px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(99,179,237,0.1);
+  transform: scale(0.8) translateY(30px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s;
+}
+
+#chat-window.open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.chat-header {
+  padding: 1rem 1.2rem;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.chat-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.chat-avatar {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.chat-header-info { line-height: 1.3; }
+
+.chat-header-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.chat-header-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.chat-close {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1.1rem;
+  cursor: none;
+  padding: 0.3rem;
+  transition: color 0.2s;
+}
+.chat-close:hover { color: var(--text); }
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dim) transparent;
+}
+
+.msg {
+  max-width: 85%;
+  padding: 0.7rem 0.9rem;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  animation: msgIn 0.3s ease;
+}
+
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.msg.bot {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px 12px 12px 12px;
+  align-self: flex-start;
+  color: var(--text);
+}
+
+.msg.user {
+  background: linear-gradient(135deg, rgba(99,179,237,0.2), rgba(118,228,247,0.15));
+  border: 1px solid rgba(99,179,237,0.3);
+  border-radius: 12px 4px 12px 12px;
+  align-self: flex-end;
+  color: var(--text);
+}
+
+.msg-sender {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 0.3rem;
+}
+
+.typing-indicator {
+  display: flex;
+  gap: 4px;
+  padding: 0.7rem 0.9rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px 12px 12px 12px;
+  align-self: flex-start;
+  animation: msgIn 0.3s ease;
+}
+
+.typing-dot {
+  width: 7px; height: 7px;
+  background: var(--muted);
+  border-radius: 50%;
+  animation: typing 1.2s infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing {
+  0%,80%,100% { transform: translateY(0); opacity: 0.4; }
+  40% { transform: translateY(-6px); opacity: 1; }
+}
+
+.quick-chips {
+  padding: 0.6rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface2);
+  flex-shrink: 0;
+}
+
+.chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  color: var(--blue);
+  background: transparent;
+  cursor: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+.chip:hover { background: rgba(99,179,237,0.1); border-color: var(--blue); }
+
+.chat-input-area {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface2);
+  flex-shrink: 0;
+}
+
+#chat-input {
+  flex: 1;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6rem 0.9rem;
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+#chat-input::placeholder { color: var(--dim); }
+#chat-input:focus { border-color: rgba(99,179,237,0.4); }
+
+#chat-send {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  border: none;
+  border-radius: 8px;
+  color: var(--bg);
+  font-size: 1rem;
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s, transform 0.15s;
+  flex-shrink: 0;
+}
+#chat-send:hover { opacity: 0.85; transform: scale(1.05); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 4px; }
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0 5rem;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero { flex-direction: column; padding: 6rem 2rem 3rem; gap: 2rem; }
+  .hero-right { flex-direction: row; }
+  section { padding: 3.5rem 2rem; }
+  .divider { margin: 0 2rem; }
+  footer { padding: 1.5rem 2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  #chat-window { width: calc(100vw - 2rem); right: 1rem; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Background Orbs -->
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AP.</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-badge">
+    <div class="dot-live"></div>
+    Open to Work
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-tag">// Senior Software Developer</div>
+    <h1 class="hero-name">
+      Aswin<span>P.</span>
+    </h1>
+    <p class="hero-title">.NET Backend Engineer · Travels Domain</p>
+    <p class="hero-bio">
+      Senior .NET developer with 4+ years of experience building scalable web APIs and enterprise applications. Specializing in ASP.NET Core, layered architecture, and B2B travel tech platforms — currently powering Akbar Travels' booking infrastructure at Benzy Infotech.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">📬 Get in Touch</a>
+      <a href="#experience" class="btn-secondary">⚡ View Projects</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-card">
+      <div class="stat-num">4+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Major Projects</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">B2B</div>
+      <div class="stat-label">Travel Tech Focus</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-label">01</span>
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-pill" data-level="0.95"><div class="skill-icon">⚙️</div><div style="flex:1"><div class="skill-name">.NET Core / C#</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:95%"></div></div></div></div>
+    <div class="skill-pill" data-level="0.90"><div class="skill-icon">🏗️</div><div style="flex:1"><div class="skill-name">.NET Framework</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div></div></div>
+    <div class="skill-pill" data-level="0.88"><div class="skill-icon">🗄️</div><div style="flex:1"><div class="skill-name">MySQL · SQL Server</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div></div></div>
+    <div class="skill-pill" data-level="0.92"><div class="skill-icon">🔗</div><div style="flex:1"><div class="skill-name">ASP.NET MVC</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:92%"></div></div></div></div>
+    <div class="skill-pill" data-level="0.93"><div class="skill-icon">📡</div><div style="flex:1"><div class="skill-name">Web API (REST)</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:93%"></div></div></div></div>
+    <div class="skill-pill" data-level="0.87"><div class="skill-icon">🔍</div><div style="flex:1"><div class="skill-name">LINQ</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:87%"></div></div></div></div>
+    <div class="skill-pill" data-level="0.85"><div class="skill-icon">📦</div><div style="flex:1"><div class="skill-name">Stored Procedures</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div></div></div>
+    <div class="skill-pill" data-level="0.75"><div class="skill-icon">🌐</div><div style="flex:1"><div class="skill-name">HTML · CSS · JS</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div></div></div>
+    <div class="skill-pill" data-level="0.70"><div class="skill-icon">⚡</div><div style="flex:1"><div class="skill-name">jQuery</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div></div></div>
+    <div class="skill-pill" data-level="0.88"><div class="skill-icon">✈️</div><div style="flex:1"><div class="skill-name">B2B Travel Domain</div><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div></div></div>
+  </div>
+
+  <table class="prof-table">
+    <thead>
+      <tr>
+        <th>Technology</th>
+        <th>Category</th>
+        <th>Proficiency</th>
+        <th>Years Used</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>C# / .NET Core</td><td>Backend Language</td><td><span class="level-dot level-expert"></span>Expert</td><td>4+</td></tr>
+      <tr><td>ASP.NET Web API</td><td>API Framework</td><td><span class="level-dot level-expert"></span>Expert</td><td>4+</td></tr>
+      <tr><td>MySQL</td><td>Database</td><td><span class="level-dot level-expert"></span>Expert</td><td>4+</td></tr>
+      <tr><td>SQL Server</td><td>Database</td><td><span class="level-dot level-advanced"></span>Advanced</td><td>3+</td></tr>
+      <tr><td>LINQ</td><td>Query Language</td><td><span class="level-dot level-expert"></span>Expert</td><td>4+</td></tr>
+      <tr><td>Stored Procedures</td><td>Database</td><td><span class="level-dot level-advanced"></span>Advanced</td><td>4+</td></tr>
+      <tr><td>MVC Architecture</td><td>Pattern</td><td><span class="level-dot level-expert"></span>Expert</td><td>4+</td></tr>
+      <tr><td>VB → C# Migration</td><td>Revamp</td><td><span class="level-dot level-advanced"></span>Advanced</td><td>3+</td></tr>
+      <tr><td>HTML / CSS / jQuery</td><td>Frontend</td><td><span class="level-dot level-intermediate"></span>Intermediate</td><td>4+</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-label">02</span>
+    <h2 class="section-title">Experience</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-date">July 2021 — Present</div>
+      <div class="timeline-company">Benzy Infotech Pvt. Ltd.</div>
+      <div class="timeline-role">Software Developer · Edappally, Ernakulam, Kerala 682024</div>
+
+      <div class="project-card">
+        <div class="project-name">✈️ Flight Revamp — Ticket Booking Web API (B2B)</div>
+        <div class="project-meta">
+          <span class="tag">ASP.NET Framework</span>
+          <span class="tag">C#</span>
+          <span class="tag green">MySQL</span>
+          <span class="tag gold">2+ Years</span>
+        </div>
+        <p class="project-desc">
+          Flight booking Web API built with layered architecture for B2B travel agents. Handles data transfer via Web API requests with LINQ queries, stored procedures, and complex data conversions — enabling agent-side journey booking for Akbar Travels customers.
+        </p>
+        <div class="arch-badges">
+          <span class="arch-badge">Layered Architecture</span>
+          <span class="arch-badge">Repository Pattern</span>
+          <span class="arch-badge">Web Request Pipeline</span>
+          <span class="arch-badge">DTO Mapping</span>
+          <span class="arch-badge">GDS Integration</span>
+        </div>
+        <div class="code-block"><span class="cm">// Flight availability search — Web API Controller</span>
+<span class="kw">public async</span> <span class="tp">Task</span>&lt;<span class="tp">IActionResult</span>&gt; <span class="fn">SearchFlights</span>(<span class="tp">FlightSearchDto</span> request)
+{
+    <span class="kw">var</span> results = <span class="kw">await</span> _flightService.<span class="fn">GetAvailabilityAsync</span>(request);
+    <span class="kw">var</span> mapped  = _mapper.<span class="fn">Map</span>&lt;<span class="tp">List</span>&lt;<span class="tp">FlightResponseDto</span>&gt;&gt;(results);
+    <span class="kw">return</span> <span class="fn">Ok</span>(mapped);
+}</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">🚂 Rail Revamp — IRCTC Ticket Booking Web API (B2B)</div>
+        <div class="project-meta">
+          <span class="tag">ASP.NET Core</span>
+          <span class="tag">C#</span>
+          <span class="tag green">MySQL</span>
+          <span class="tag gold">1.3 Years</span>
+        </div>
+        <p class="project-desc">
+          Rail ticket booking platform built for B2B agents using ASP.NET Core. Integrates IRCTC via Web API, handles LINQ queries, stored procedures, and data transformations. Enables agents to manage train bookings for their customers.
+        </p>
+        <div class="arch-badges">
+          <span class="arch-badge">ASP.NET Core Middleware</span>
+          <span class="arch-badge">IRCTC API Integration</span>
+          <span class="arch-badge">Async/Await</span>
+          <span class="arch-badge">Stored Proc Layer</span>
+        </div>
+        <div class="code-block"><span class="cm">// IRCTC booking with stored procedure call</span>
+<span class="kw">var</span> bookingResult = <span class="kw">await</span> _db.<span class="fn">ExecuteStoredProcAsync</span>(
+    <span class="str">"sp_BookRailTicket"</span>,
+    <span class="kw">new</span> { PNR = request.Pnr, AgentId = request.AgentId }
+);
+<span class="kw">return</span> _mapper.<span class="fn">Map</span>&lt;<span class="tp">BookingResponseDto</span>&gt;(bookingResult);</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date">January 2021 — July 2021</div>
+      <div class="timeline-company">EazyLearn Software Training</div>
+      <div class="timeline-role">Software Trainee Programmer · Kaloor, Kochi, Kerala 682017</div>
+
+      <div class="project-card">
+        <div class="project-name">🏢 Vendor Management System</div>
+        <div class="project-meta">
+          <span class="tag">ASP.NET</span>
+          <span class="tag">C#</span>
+          <span class="tag green">SQL Server</span>
+          <span class="tag gold">15 Days</span>
+        </div>
+        <p class="project-desc">
+          Web-based Vendor Management System to add, edit, and delete vendor details. Implements ASP.NET data controls including GridView, DetailsView, ListView, and FormView to manage and display vendor data efficiently.
+        </p>
+        <div class="arch-badges">
+          <span class="arch-badge">CRUD Operations</span>
+          <span class="arch-badge">GridView / DetailsView</span>
+          <span class="arch-badge">SQL Server</span>
+          <span class="arch-badge">Web Forms</span>
+        </div>
+        <div class="code-block"><span class="cm">// Vendor data binding with GridView</span>
+<span class="kw">protected void</span> <span class="fn">BindVendorGrid</span>()
+{
+    <span class="kw">var</span> vendors = <span class="fn">GetAllVendors</span>();
+    VendorGridView.DataSource = vendors;
+    VendorGridView.<span class="fn">DataBind</span>();
+}</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="section-header">
+    <span class="section-label">03</span>
+    <h2 class="section-title">System Architecture</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+    <div class="project-card" style="margin-bottom:0;">
+      <div class="project-name">🗂 Layered Architecture Pattern</div>
+      <p class="project-desc" style="margin-bottom:0.8rem;">All enterprise applications are built using a strict N-tier layered approach for separation of concerns and maintainability.</p>
+      <div class="code-block"><span class="cm">// Solution structure (Flight Revamp)</span>
+<span class="tp">FlightRevamp.API</span>          <span class="cm">← Controllers, Routes</span>
+<span class="tp">FlightRevamp.Service</span>       <span class="cm">← Business Logic</span>
+<span class="tp">FlightRevamp.Repository</span>    <span class="cm">← Data Access (LINQ)</span>
+<span class="tp">FlightRevamp.Models</span>        <span class="cm">← DTOs, Entities</span>
+<span class="tp">FlightRevamp.Common</span>        <span class="cm">← Helpers, Constants</span></div>
+    </div>
+    <div class="project-card" style="margin-bottom:0;">
+      <div class="project-name">⚡ Data Pipeline Flow</div>
+      <p class="project-desc" style="margin-bottom:0.8rem;">Web API requests go through a typed pipeline: deserialize → validate → service call → stored proc → map response.</p>
+      <div class="code-block"><span class="cm">// Data flow in Rail Revamp</span>
+<span class="kw">var</span> raw    = <span class="kw">await</span> _irctc.<span class="fn">FetchAsync</span>(query);
+<span class="kw">var</span> parsed = <span class="fn">ParseIrctcXml</span>(raw);           <span class="cm">// XML → Model</span>
+<span class="kw">var</span> stored = <span class="kw">await</span> _repo.<span class="fn">UpsertAsync</span>(parsed); <span class="cm">// to MySQL</span>
+<span class="kw">return</span> _mapper.<span class="fn">Map</span>&lt;<span class="tp">TrainDto</span>&gt;(stored);      <span class="cm">// DTO out</span></div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-name">🔄 VB → C# Migration Strategy</div>
+    <p class="project-desc" style="margin-bottom:0.8rem;">Systematic revamping of legacy VB.NET modules to C# with zero downtime — parsing legacy syntax, refactoring to idiomatic C#, and validating business logic parity.</p>
+    <div class="code-block"><span class="cm">' VB.NET (Legacy)</span>
+<span class="kw">Dim</span> result <span class="kw">As</span> <span class="tp">DataTable</span> = GetData(id)
+<span class="kw">If</span> result.Rows.Count &gt; 0 <span class="kw">Then</span> Response.Write(result.Rows(0)(<span class="str">"Name"</span>))
+
+<span class="cm">// C# (Revamped)</span>
+<span class="kw">var</span> result = <span class="kw">await</span> _repo.<span class="fn">GetByIdAsync</span>(id);
+<span class="kw">if</span> (result <span class="kw">is not null</span>) <span class="kw">return</span> <span class="fn">Ok</span>(result.Name);</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header">
+    <span class="section-label">04</span>
+    <h2 class="section-title">Education</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-year">2014 – 2018</div>
+      <div class="edu-degree">B.Tech — Electrical & Electronics Engineering</div>
+      <div class="edu-institute">Sreepathy Institute of Management & Technology, Vavanoor, Pattambi, Palakkad · Calicut University</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2012 – 2014</div>
+      <div class="edu-degree">Higher Secondary (HSC)</div>
+      <div class="edu-institute">DonBosco Higher Secondary School, Mannuthy</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2010</div>
+      <div class="edu-degree">Secondary School (SSLC)</div>
+      <div class="edu-institute">DonBosco Higher Secondary School, Mannuthy · Kerala Secondary Board</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-label">05</span>
+    <h2 class="section-title">Contact</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-grid">
+    <a href="tel:+919496947422" class="contact-item">
+      <div class="contact-icon">📞</div>
+      <div>
+        <div class="contact-label">Phone</div>
+        <div class="contact-value">+91 9496 947 422</div>
+      </div>
+    </a>
+    <a href="mailto:aswinpanavalappil@gmail.com" class="contact-item">
+      <div class="contact-icon">✉️</div>
+      <div>
+        <div class="contact-label">Email</div>
+        <div class="contact-value">aswinpanavalappil@gmail.com</div>
+      </div>
+    </a>
+    <div class="contact-item" style="grid-column: span 2;">
+      <div class="contact-icon">📍</div>
+      <div>
+        <div class="contact-label">Address</div>
+        <div class="contact-value">Panavalappil (H), Ollukkara P.O, Mannuthy, Thrissur — 680651, Kerala, India</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">© 2025 Aswin P — Senior Software Developer</div>
+  <div class="footer-text">Thrissur, Kerala · India</div>
+</footer>
+
+<!-- ===== CHATBOT ===== -->
+<div class="chat-bubble">👋 Ask me anything about Aswin!</div>
+
+<button id="chat-toggle" onclick="toggleChat()" title="AI Assistant">🤖</button>
+
+<div id="chat-window">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <div class="chat-avatar">🤖</div>
+      <div class="chat-header-info">
+        <div class="chat-header-name">Aswin's AI Assistant</div>
+        <div class="chat-header-sub"><div class="dot-live"></div>Powered by Claude AI</div>
+      </div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+
+  <div class="chat-messages" id="chat-messages">
+    <div class="msg bot">
+      <div class="msg-sender">AI Assistant</div>
+      Hi! I'm Aswin's AI assistant 👋 I can answer questions about his skills, experience, projects, and more. What would you like to know?
+    </div>
+  </div>
+
+  <div class="quick-chips">
+    <button class="chip" onclick="sendChip('What are Aswin\'s top skills?')">🛠 Skills</button>
+    <button class="chip" onclick="sendChip('Tell me about the Flight Revamp project')">✈️ Projects</button>
+    <button class="chip" onclick="sendChip('What is Aswin\'s work experience?')">💼 Experience</button>
+    <button class="chip" onclick="sendChip('What is Aswin\'s educational background?')">🎓 Education</button>
+    <button class="chip" onclick="sendChip('How can I contact Aswin?')">📬 Contact</button>
+  </div>
+
+  <div class="chat-input-area">
+    <input type="text" id="chat-input" placeholder="Ask anything about Aswin..." onkeydown="handleKey(event)" />
+    <button id="chat-send" onclick="sendMessage()">➤</button>
+  </div>
+</div>
+
+<script>
+// ─── Cursor ───
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = (mx - 5) + 'px';
+  cursor.style.top  = (my - 5) + 'px';
+});
+
+(function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) *.12;
+  ring.style.left = (rx - 18) + 'px';
+  ring.style.top  = (ry - 18) + 'px';
+  requestAnimationFrame(animRing);
+})();
+
+// ─── Chat ───
+let chatOpen = false;
+const chatWin = document.getElementById('chat-window');
+const msgs    = document.getElementById('chat-messages');
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  chatWin.classList.toggle('open', chatOpen);
+  document.querySelector('.chat-bubble').style.display = 'none';
+  if (chatOpen) document.getElementById('chat-input').focus();
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter') sendMessage();
+}
+
+function sendChip(text) {
+  document.getElementById('chat-input').value = text;
+  sendMessage();
+}
+
+function appendMsg(text, role) {
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  if (role === 'bot') div.innerHTML = `<div class="msg-sender">AI Assistant</div>${text}`;
+  else div.innerHTML = `<div class="msg-sender" style="color:var(--cyan);text-align:right">You</div>${text}`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping() {
+  const t = document.createElement('div');
+  t.className = 'typing-indicator';
+  t.id = 'typing';
+  t.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+  msgs.appendChild(t);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function hideTyping() {
+  const t = document.getElementById('typing');
+  if (t) t.remove();
+}
+
+const SYSTEM_PROMPT = `You are a friendly and knowledgeable AI assistant representing Aswin P's personal portfolio. You help visitors learn about Aswin's professional background.
+
+Here is Aswin's complete profile:
+
+NAME: Aswin P
+ROLE: Senior Software Developer (.NET Backend)
+LOCATION: Panavalappil (H), Ollukkara P.O, Mannuthy, Thrissur, Kerala - 680651, India
+PHONE: +91 9496947422
+EMAIL: aswinpanavalappil@gmail.com
+
+SUMMARY: .NET Backend Senior Developer with 4+ years of experience. Currently working at Benzy Infotech Pvt. Ltd., associated with Akbar Travels. Expert in developing and maintaining web applications on .NET and .NET Core platforms using modular programming and layered architecture. Also experienced in revamping programs from VB to C#.
+
+EXPERIENCE:
+1. Benzy Infotech Pvt. Ltd. | Edappally, Ernakulam, Kerala | July 2021 – Present | Role: Software Developer
+   - Flight Revamp: Ticket Booking Web API for B2B (ASP.NET Framework, C#, MySQL, 2+ years). Layered architecture for booking flights for agents/Akbar Travels customers. Features LINQ, stored procedures, data conversions.
+   - Rail Revamp: IRCTC Ticket Booking Web API for B2B (ASP.NET Core, C#, MySQL, 1.3 years). Booking train tickets for agents, integrated IRCTC, uses LINQ, stored procedures.
+
+2. EazyLearn Software Training | Kaloor, Kochi | January 2021 – July 2021 | Role: Software Trainee Programmer
+   - Vendor Management System (ASP.NET, C#, SQL Server, 15 days). Web app to manage vendor details with GridView, DetailsView, ListView, FormView.
+
+SKILLS / EXPERTISE:
+- .NET Core, C#
+- .NET Framework
+- MySQL, SQL Server
+- MVC Layered Architecture
+- ASP.NET Web API
+- LINQ, Stored Procedures
+- HTML, CSS, JavaScript, jQuery
+- Domain knowledge in Travels/B2B
+- VB to C# migration
+
+EDUCATION:
+- B.Tech (EEE) – Calicut University, Sreepathy Institute of Management & Technology, Vavanoor, Pattambi, Palakkad (2014–2018)
+- Higher Secondary Board – DonBosco Higher Secondary, Mannuthy (2012–2014)
+- Kerala Secondary Board – DonBosco Higher Secondary, Mannuthy (2010)
+
+LANGUAGES: English, Malayalam
+
+REFERENCES:
+- Jayesh K S – Project Manager, Flight Connector, Benzy Infotech
+- JerlyMon P P – Project Manager, Admin Team, Benzy Infotech
+
+Answer visitor questions warmly and professionally. Be concise but complete. If asked something not in the profile, say you don't have that information but suggest contacting Aswin directly.`;
+
+let chatHistory = [];
+
+async function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+
+  appendMsg(text, 'user');
+  chatHistory.push({ role: 'user', content: text });
+  showTyping();
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: SYSTEM_PROMPT,
+        messages: chatHistory
+      })
+    });
+
+    const data = await res.json();
+    const reply = data.content?.map(b => b.text || '').join('') || 'Sorry, I couldn\'t get a response. Please try again.';
+
+    hideTyping();
+    appendMsg(reply, 'bot');
+    chatHistory.push({ role: 'assistant', content: reply });
+
+    // Keep history manageable
+    if (chatHistory.length > 20) chatHistory = chatHistory.slice(-16);
+
+  } catch (err) {
+    hideTyping();
+    appendMsg('⚠️ Connection error. Please check your internet and try again.', 'bot');
+    console.error(err);
+  }
+}
+
+// Scroll animations
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+      if (e.target.classList.contains('skill-pill')) {
+        e.target.classList.add('visible');
+      }
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.skill-pill, .project-card, .edu-card, .contact-item, .timeline-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
